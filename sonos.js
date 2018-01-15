@@ -88,9 +88,9 @@ async function play(player){
 }
 
 exports.stop = async function(zone){
-    var player = zones[zone];
+    var player = zones[zone]
 
-    await stop(player);
+    await stop(player)
 }
 
 async function stop(player){

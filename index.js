@@ -10,9 +10,14 @@ server.get('/play', function create(req, res, next) {
     var playlist = req.query.playlist;
     var zone = req.query.zone;
 
-    sonos.playPlaylist(zone, playlist);
+    try {
+        sonos.playPlaylist(zone, playlist);
 
-    res.send(200);
+        res.send(200);
+    } catch(e) {
+        res.send(500);
+        console.error(e);
+    }
 
     return next();
 });
@@ -21,10 +26,14 @@ server.get('/stop', function create(req, res, next) {
     console.log('stop');
     
     var zone = req.query.zone;
+    try {
+        sonos.stop(zone);
 
-    sonos.stop(zone);
-
-    res.send(200);
+        res.send(200);
+    } catch(e) {
+        res.send(500);
+        console.error(e);
+    } 
 
     return next();
 });
