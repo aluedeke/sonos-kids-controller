@@ -46,7 +46,7 @@ async function getPlaylist(player, name){
     return new Promise((resolve, reject) => {
         player.searchMusicLibrary('sonos_playlists', null, {start:0, end:100}, (error, result) => {
             console.log('get playlist: ' + JSON.stringify(error ? error : result));
-            return void error ? reject(error) : resolve(result.items.filter(p => name == p.title)[0])
+            return error ? reject(error) : resolve(result.items.filter(p => name == p.title)[0])
         });
     })
 }
@@ -55,7 +55,7 @@ async function flush(player){
     return new Promise((resolve, reject) => {
         player.flush((error, data) => {
             console.log('flushed: ' + JSON.stringify(error ? error : data));
-            return void error ? reject(error) : resolve(data)
+            return error ? reject(error) : resolve(data)
         });
     })
 }
@@ -64,7 +64,7 @@ async function queue(player, uri){
     return new Promise((resolve, reject) => {
         player.queue(uri, (error, queued) => {
             console.log('queued: ' + JSON.stringify(error ? error : queued));
-            return void error ? reject(error) : resolve(queued)
+            return error ? reject(error) : resolve(queued)
         });
     })
 }
@@ -73,7 +73,7 @@ async function selectQueue(player){
     return new Promise((resolve, reject) => {
         player.selectQueue((error, data) => {
             console.log('queue selected: ' + JSON.stringify(error ? error : data));
-            return void error ? reject(error) : resolve(data)
+            return error ? reject(error) : resolve(data)
         });
     })
 }
@@ -82,7 +82,7 @@ async function play(player){
     return new Promise((resolve, reject) => {
         player.play((error, data) => {
             console.log('play: ' + JSON.stringify(error ? error : data));
-            return void error ? reject(error) : resolve(data)
+            return error ? reject(error) : resolve(data)
         });
     })
 }
@@ -96,7 +96,8 @@ exports.stop = async function(zone){
 async function stop(player){
     return new Promise((resolve, reject) => {
         player.stop((error, stopped) => {
-            return void error ? reject(error) : resolve(stopped)
+            console.log('stop: ' + JSON.stringify(error ? error : stopped));
+            return error ? reject(error) : resolve(stopped)
         });
     })
 }
